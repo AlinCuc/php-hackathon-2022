@@ -14,46 +14,97 @@ You have estimated it takes 4 weeks to build this solution. You have 3 days. Goo
 ## Technical documentation
 ### Data and Domain model
 In this section, please describe the main entities you managed to identify, the relationships between them and how you mapped them in the database.
+![img.png](img.png)
+
+I identified four entities: Customer, Room, Programme, Appointment
+- A Customer can have many Appointments. An Appointment can have only one Customer (1:m)
+- A Room can host multiple Programmes. A Programme can occur in only one room (m:1)
+
 ### Application architecture
 In this section, please provide a brief overview of the design of your application and highlight the main components and the interaction between them.
+
+This application has Models and Model related logic situated in src/Entity and src/Repository
+It also has Controllers. The purpose of the Controller is to handle a Request from the Client(used Postman in development).
+Using Models the Controller creates a Response and returns it to the Client in a JSON format.
+
 ###  Implementation
 ##### Functionalities
 For each of the following functionalities, please tick the box if you implemented it and describe its input and output in your application:
 
 [x] Brew coffee \
-[ ] Create programme \
-[ ] Delete programme \
-[ ] Book a programme 
+[x] Create programme \
+[x] Delete programme \
+[x] Book a programme 
 
 ##### Business rules
 Please highlight all the validations and mechanisms you identified as necessary in order to avoid inconsistent states and apply the business logic in your application.
 
+To perform any request you need to add a token in the request body
+
+# Create programme
+- Handles only POST requests
+- Start time and end time must be inside a hardcoded schedule 08-20
+- start time cand not be after end time
+- The room in which the programme is supposed to happen must exist
+
+# Delete Programme
+- Handles only delete requests
+- The programme that we are requested to delete must exist
+
+# Add Appointment 
+- The customer for which we want to make an appointment must exist
+- The programme for which we want to make an appointment must exist
+- The number of existing appointments must be lower than max participants for a new appointment to be made.
+
+
 ##### 3rd party libraries (if applicable)
 Please give a brief review of the 3rd party libraries you used and how/ why you've integrated them into your project.
+
+- I used Doctrine ORM to communicate with the DB
+- I used the maker bundle to create entities and repositories as presented in the Symfony Documentation
+- I used Postman to send requests
 
 ##### Environment
 Please fill in the following table with the technologies you used in order to work at your application. Feel free to add more rows if you want us to know about anything else you used.
 | Name | Choice |
 | ------ | ------ |
-| Operating system (OS) | e.g. Ubuntu 20.04 |
-| Database  | e.g. MySQL 8.0|
-| Web server| e.g. Nginx |
-| PHP | e.g. 7.0 |
-| IDE | e.g. PhpStorm |
+| Operating system (OS) | Windows |
+| Database  | Maria DB 10.4.22 via XAMPP|
+| Web server| Symfony Local Server |
+| PHP | 8.0.2 |
+| IDE | PhpStorm |
 
 ### Testing
 In this section, please list the steps and/ or tools you've used in order to test the behaviour of your solution.
+
+I manually tested the application
 
 ## Feedback
 In this section, please let us know what is your opinion about this experience and how we can improve it:
 
 1. Have you ever been involved in a similar experience? If so, how was this one different?
+I did something similar during a previous internship.
+
 2. Do you think this type of selection process is suitable for you?
+I think the problem was really hard, harder than other internship interviews I did.
+
 3. What's your opinion about the complexity of the requirements?
+I think that the requirement was really complex.
+
 4. What did you enjoy the most?
+I enjoyed developing an API and not having to think about frontend views
+
 5. What was the most challenging part of this anti hackathon?
+The most challenging part were the validations.
+
 6. Do you think the time limit was suitable for the requirements?
+I think a week would have been a more suitable time limit.
+
 7. Did you find the resources you were sent on your email useful?
+Yes
+
 8. Is there anything you would like to improve to your current implementation?
+I'm sure the application could be improved specially on the validation part.
+
 9. What would you change regarding this anti hackathon?
 
